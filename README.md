@@ -1,0 +1,2 @@
+# SCT
+Scalping Crypto Trader
