@@ -11,7 +11,9 @@ def timeToUNIX(timeStamp):
 
   return time.mktime(datetime.datetime.strftime(timeStamp, "%Y/%m/%d-%H:%M:%S"))
 
-   
+def UNIXToTime(timeStamp):
+  import time
+  import datetime
 
 # @auhtor: mangose10
 #
@@ -24,8 +26,9 @@ def timeToUNIX(timeStamp):
 #
 # output:
 # json object - 'data' array containing 'high', 'low', 'open', 'close', 'volume', 'period'
+#
+# minimalist ex: getCandles("m1", "bitcoin")
 def getCandles(interval, baseId, exchange="poloniex", quoteId="USD", start=0, end=0):
-
   if (start > end):
     return {'status' : 'Invalid time range.'}
 
@@ -34,7 +37,7 @@ def getCandles(interval, baseId, exchange="poloniex", quoteId="USD", start=0, en
   reqString += "&end="+end if end > 0 else ""
 
   conn.request("GET", reqString)
-
+ 
   res = conn.getresponse()
   data = res.read()
   return (data.decode("utf-8"))
