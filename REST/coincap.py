@@ -24,12 +24,12 @@ def timeToUNIX(timeStamp):
 #
 # output:
 # json object - 'data' array containing 'high', 'low', 'open', 'close', 'volume', 'period'
-def getCandles(interval, baseId, quoteId="USD", start=0, end=0):
+def getCandles(interval, baseId, exchange="poloniex", quoteId="USD", start=0, end=0):
 
   if (start > end):
     return {'status' : 'Invalid time range.'}
 
-  reqString = "/v2/candles?exchange=poloniex&interval="+interval+"&baseId="+baseId+"&quoteId="+quoteId
+  reqString = "/v2/candles?exchange="+exchange+"&interval="+interval+"&baseId="+baseId+"&quoteId="+quoteId
   reqString += "&start="+start if start > 0 else ""
   reqString += "&end="+end if end > 0 else ""
 
@@ -38,3 +38,25 @@ def getCandles(interval, baseId, quoteId="USD", start=0, end=0):
   res = conn.getresponse()
   data = res.read()
   return (data.decode("utf-8"))
+
+def getMarkets():
+
+
+  conn.request("GET", "/v2/markets", payload, headers)
+
+  res = conn.getresponse()
+  data = res.read()
+  return (data.decode("utf-8"))
+
+def getExchanges(id="none"):
+
+  reqString = "/v2/exchanges"
+  reqString += "/"+id if id=="none" else ""
+
+  conn.request("GET", reqString, payload, headers)
+  res = conn.getresponse()
+  data = res.read()
+  return (data.decode("utf-8"))
+
+def getRates():
+  return ("")
